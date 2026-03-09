@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,25 +9,51 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            width: 100%;
             overflow: hidden;
-            background-color: #525659; /* PDF Viewer Grey */
+            background-color: #525659;
         }
-        .pdf-frame {
+        .container {
             width: 100%;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        iframe {
+            width: 100%;
+            flex-grow: 1;
             border: none;
+        }
+        .fallback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            width: 90%;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Embed PDF for Desktop/Tablets -->
-    <object data="gleb_lukyanov_CV.pdf" type="application/pdf" class="pdf-frame">
-        <!-- Fallback for Mobile/No-PDF Browsers -->
-        <div style="text-align: center; padding-top: 50px; color: white; font-family: sans-serif;">
-            <p>Your browser doesn't support embedded PDFs.</p>
-            <a href="gleb_lukyanov_CV.pdf" style="color: #3498db; font-size: 18px; text-decoration: none; border: 2px solid #3498db; padding: 10px 20px; border-radius: 5px;">Download Resume (PDF)</a>
-        </div>
-    </object>
+    <div class="container">
+        <iframe src="gleb_lukyanov_CV.pdf#toolbar=0">
+            <div class="fallback">
+                <h2>Gleb Lukyanov - CV</h2>
+                <a href="gleb_lukyanov_CV.pdf" class="btn">Open Resume (PDF)</a>
+            </div>
+        </iframe>
+    </div>
 </body>
 </html>
-    
