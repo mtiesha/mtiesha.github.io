@@ -3,57 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gleb Lukyanov - GenAI Architect</title>
+    <title>Gleb Lukyanov - CV</title>
     <style>
-        body, html {
+        /* GLOBAL BOX SIZING FIX */
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
             margin: 0;
             padding: 0;
-            height: 100%;
+        }
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-size: 10.5px;
+            line-height: 1.5;
+        }
+        
+        /* --- HEADER --- */
+        header {
+            background-color: #0f2b46;
+            color: #ffffff;
+            padding: 25px 40px;
+            border-bottom: 3px solid #3498db;
             width: 100%;
-            overflow: hidden;
-            background-color: #525659;
         }
-        .container {
+        
+        .header-content h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        .header-content h2 { margin: 5px 0 0; font-size: 14px; font-weight: 300; color: #b3d9f2; letter-spacing: 0.5px; }
+        .header-contacts { margin-top: 12px; font-size: 10px; color: #cfd8dc; }
+        .header-contacts span { margin-right: 15px; display: inline-block; }
+        .header-contacts a { color: #cfd8dc; text-decoration: none; border-bottom: 1px dotted #546e7a; }
+
+        /* GRID SYSTEM (Table Layout) */
+        .main-grid {
+            display: table;
             width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            border-collapse: collapse;
+            table-layout: fixed; /* Hard constraint on widths */
         }
-        iframe {
-            width: 100%;
-            flex-grow: 1;
-            border: none;
+        
+        /* LEFT COLUMN (Main Content) */
+        .col-left {
+            display: table-cell;
+            width: 63%; 
+            padding: 30px 40px;
+            vertical-align: top;
+            background-color: #fff;
         }
-        .fallback {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            width: 90%;
+        
+        /* RIGHT COLUMN (Sidebar) */
+        .col-right {
+            display: table-cell;
+            width: 37%;
+            background-color: #f8f9fa;
+            padding: 30px 25px;
+            vertical-align: top;
+            border-left: 1px solid #eaeded;
         }
-        .btn {
+
+        /* TYPOGRAPHY & SECTIONS */
+        h3 {
+            color: #0f2b46;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* EXPERIENCE ENTRIES */
+        .job-entry {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        .job-header {
+            margin-bottom: 4px;
+        }
+        .job-role {
+            font-weight: 700;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+        .job-company {
             display: inline-block;
-            background: #3498db;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 20px;
+            margin-left: 5px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
+        }
+        .job-company::before {
+            content: "| ";
+            color: #ccc;
+            margin-right: 5px;
+            font-style: normal;
+        }
+        .job-date {
+            float: right;
+            font-size: 10px;
+            color: #95a5a6;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .job-desc {
+            margin-bottom: 6px;
+            text-align: justify;
+            color: #444;
+            font-size: 10.5px;
+        }
+        ul {
+            margin: 0;
+            padding-left: 12px;
+        }
+        li {
+            margin-bottom: 3px;
+            color: #444;
+            font-size: 10.5px;
+            text-align: justify;
+            line-height: 1.4;
+        }
+        
+        /* SMALL JOB ENTRY */
+        .job-entry-small {
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+        .job-entry-small .job-role { font-size: 11px; }
+        .job-entry-small .job-company { font-size: 11px; }
+        .job-entry-small .job-desc { font-size: 10px; color: #555; }
+        .job-entry-small li { font-size: 10px; color: #555; }
+
+        /* SIDEBAR ITEMS */
+        .skill-group { margin-bottom: 15px; page-break-inside: avoid; }
+        .skill-cat {
+            font-weight: 700;
+            font-size: 10px;
+            color: #0f2b46;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+        .skill-list {
+            font-size: 10.5px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .edu-entry {
+            margin-bottom: 15px;
+            border-left: 2px solid #bdc3c7;
+            padding-left: 8px;
+        }
+        .edu-school { font-weight: 700; color: #2c3e50; font-size: 11px; display: block; }
+        .edu-degree { color: #555; font-size: 10.5px; display: block; }
+        .edu-date { font-size: 9px; color: #95a5a6; }
+        .edu-desc { font-size: 9.5px; color: #7f8c8d; margin-top: 2px; font-style: italic; }
+
+        /* PORTFOLIO & QR STYLES */
+        .video-portfolio { margin-bottom: 30px; }
+        .qr-main-container {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .shorts-grid {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .shorts-grid > div {
+            display: inline-block;
+            width: 23%;
+            vertical-align: top;
+            margin: 0;
+        }
+        
+        footer {
+            clear: both;
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 8px;
+            color: #bdc3c7;
+            border-top: 1px solid #eee;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <iframe src="gleb_lukyanov_CV.pdf#toolbar=0">
-            <div class="fallback">
-                <h2>Gleb Lukyanov - CV</h2>
-                <a href="gleb_lukyanov_CV.pdf" class="btn">Open Resume (PDF)</a>
-            </div>
-        </iframe>
+
+<header>
+    <div class="header-content">
+        <h1>Gleb Lukyanov</h1>
+        <h2>Technical Product Marketing Manager / R&D GenAI Lead</h2>
+        
+        <div class="header-contacts">
+            <span>✉ treceventashm@gmail.com</span>
+            <span>in linkedin.com/in/mtiesha</span>
+            <span>git github.com/mtiesha</span>
+        </div>
     </div>
+</header>
+
+<div class="main-grid">
+    <!-- LEFT COLUMN: Main Experience -->
+    <div class="col-left">
+        
+        <h3>Executive Summary</h3>
+        <div style="margin-bottom: 30px; color: #34495e; font-style: italic; text-align: justify;">
+            <strong>Technical Product Marketing Manager</strong> focused on <strong>North Star-centric positioning</strong> and strategic differentiation. I design core product mechanics to drive long-term retention (<strong>LTV</strong>) and <strong>NPS</strong>. Beyond strategy, I define operational standards and technical roadmaps, bridging the gap to execution through <strong>Rapid Prototyping</strong> (Python/C++) and <strong>LEAN optimization</strong> for efficient MVP delivery. I ensure sustainable growth by actively training and mentoring cross-functional teams, ensuring that every process aligns with the strategic vision.
+        </div>
+        
+
+        <h3>Professional Experience</h3>
+
+        <!-- 1. AVITRAGE SECTION -->
+        <div class="job-entry">
+            <div class="job-header">
+                <span class="job-role">Head of Product & AI Engineering (Co-Founder)</span>
+                <span class="job-date">2023 - 2026</span>
+                <div class="job-company">Avitrage</div>
+            </div>
+            
+            <div class="job-desc">Led a cross-functional team of 13 to build Emaki, a proprietary GenAI engine. Focused on finding Product-Market Fit through rapid technical validation and agentic workflow orchestration.</div>
+            
+            <ul>
+                <li>Defined and executed the GTM strategy for 'Emaki', scaling B2B adoption to <strong>5+ enterprise clients</strong> and positioning the product away from generic LLM wrappers.</li>
+                <li>Technically validated the multi-agent architecture (GPT-4, Gemini) personally, proving feasibility in days rather than months (De-risking R&D).</li>
+                <li>Built and deployed 'Memoria', a gamified module that reduced client onboarding costs by ~$2,500/month, directly optimizing Unit Economics.</li>
+                <li>Orchestrated the feedback loop between Sales and Engineering, translating customer pain points into specific technical requirements for the dev team.</li>
+            </ul>
+            
+            <!-- INLINE PROOF OF WORK: EMAKI -->
+            <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px; display: table; width: 100%;">
+                <div style="display: table-cell; vertical-align: middle; width: 65px;">
+                    <a href="https://landing.avitrage.com/demo" style="text-decoration:none; border:none;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_emaki.png" style="width:60px; height:60px; display:block;" alt="QR">
+                    </a>
+                </div>
+                <div style="display: table-cell; vertical-align: middle; padding-left: 12px;">
+                    <strong style="font-size: 10px; color: #0f2b46; display: block;">PROJECT HUB: Emaki Engine</strong>
+                    <span style="font-size: 9px; color: #7f8c8d; display: block; margin-bottom: 3px;">Product Presentation & Demo Landing</span>
+                    <a href="https://landing.avitrage.com/demo" style="font-size: 9px; color: #3498db; text-decoration: none; border-bottom: 1px solid #3498db;">landing.avitrage.com/demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Independent R&D Projects -->
+        <h4 style="margin: 0 0 5px 0; font-size: 11px; color: #95a5a6; text-transform: uppercase; font-weight: 700;">Independent R&D Projects</h4>
+        <div class="job-entry-small">
+            <div class="job-header">
+                <span class="job-role">Systems Architect & Prototyping Engineer</span>
+                <span class="job-date">2026 - Present</span>
+                <div class="job-company">Independent R&D</div>
+            </div>
+            
+            <div class="job-desc">Delivering specialized technical consulting and rapid prototyping services, focusing on high-performance constraints-based engineering across cloud AI and embedded edge systems.</div>
+            
+            <ul>
+                <li>Architected "The 3-Hour Factory": A fully autonomous content engine that analyzes competitor metrics to predict viral topics, orchestrates a "Deep Screenwriting" engine to generate narrative scripts, and automates the rendering and publishing of both Long-form videos and Shorts to YouTube.</li>
+                <li>Engineered a highly optimized C++ control model for ESP32 robotics, successfully executing complex floating-point logic within strict 520KB SRAM constraints.</li>
+                <li>Executed full-stack hardware engineering: <strong>Design for Manufacturing (DFM) analysis</strong> for multi-axis CNC & 3D printing, enclosure sourcing, circuit design & manual soldering, and full firmware integration.</li>
+            </ul>
+
+            <!-- INLINE PROOF OF WORK: FACTORY -->
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ddd; display: table; width: 100%;">
+                <div style="display: table-cell; vertical-align: middle; width: 65px;">
+                    <a href="https://youtube.com/@pipelinetestsdeep" style="text-decoration:none; border:none;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_factory.png" style="width:60px; height:60px; display:block;" alt="QR">
+                    </a>
+                </div>
+                <div style="display: table-cell; vertical-align: middle; padding-left: 12px;">
+                    <strong style="font-size: 10px; color: #0f2b46; display: block;">DEMO CHANNEL: 3-Hour Factory</strong>
+                    <span style="font-size: 9px; color: #7f8c8d; display: block; margin-bottom: 3px;">Autonomous Generation Showcase & Case Study</span>
+                    <a href="https://www.youtube.com/@pipelinetestsdeep" style="font-size: 9px; color: #3498db; text-decoration: none; border-bottom: 1px solid #3498db;">youtube.com/@pipelinetestsdeep</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. LVU SECTION -->
+        <div class="job-entry">
+            <div class="job-header">
+                <span class="job-role">Chief Executive Officer</span>
+                <span class="job-date">2019 - 2020</span>
+                <div class="job-company">LVU</div>
+            </div>
+            
+            <div class="job-desc">Transformed a standard B2G procurement business into a tech-enabled platform, leading to acquisition.</div>
+            
+            <ul>
+                <li>Developed a proprietary automated onboarding system for B2G procurement agents, <strong>reducing time-to-productivity from 3 months to 1.5 weeks</strong> (8x acceleration).</li>
+                <li>Enabled a low-cost workforce strategy by validating zero-experience hires who generated revenue during the training phase.</li>
+                <li>Bootstrapped company to high-margin profitability.</li>
+                <li>Orchestrated a successful exit (acquisition) primarily driven by the value of the custom automation software.</li>
+            </ul>
+        </div>
+
+        <!-- 4. TRECEVENTAS SECTION -->
+        <div class="job-entry">
+            <div class="job-header">
+                <span class="job-role">Business Development Manager</span>
+                <span class="job-date">2018 - 2019</span>
+                <div class="job-company">Treceventas</div>
+            </div>
+            
+            <div class="job-desc">Strategic location scouting and regulatory arbitrage for offline retail facilities.</div>
+            
+            <ul>
+                <li>Identified and leveraged a dormant legislative clause to secure exclusive retail permits in restricted high-traffic zones, bypassing standard competition.</li>
+                <li>Achieved high-margin organic traffic through strategic location acquisition ('regulatory hacking'), resulting in a <strong>10x ROI upon business exit</strong>.</li>
+                <li>Negotiated official permits with city authorities in two major cities, resolving regulatory bottlenecks.</li>
+            </ul>
+        </div>
+
+        <!-- 5. CCARIBA SECTION -->
+        <div class="job-entry">
+            <div class="job-header">
+                <span class="job-role">Product Marketing Manager</span>
+                <span class="job-date">2017 - 2018</span>
+                <div class="job-company">CCariba</div>
+            </div>
+            
+            <div class="job-desc">Managed FMCG product design, manufacturing logistics, and small-batch production (Chocolate/Coffee).</div>
+            
+            <ul>
+                <li>Managed the full product lifecycle from concept to small-batch production and packaging.</li>
+                <li>Directed supply chain logistics and vendor relationships, resolving regulatory and quality assurance challenges.</li>
+                <li>Designed product branding and packaging solutions, executing rapid iteration cycles based on consumer feedback.</li>
+            </ul>
+        </div>
+
+                <!-- 6. FTSHOP SECTION -->
+                <div class="job-entry">
+                    <div class="job-header">
+                        <span class="job-role">Retail Product Owner</span>
+                        <span class="job-date">2010 - 2012</span>
+                        <div class="job-company">FTShop</div>
+                    </div>
+                    
+                    <div class="job-desc">Founded and managed a niche offline retail business.</div>
+                </div>
+        <!-- DYNAMIC CUSTOM SECTIONS -->
+        
+    </div>
+
+    <!-- RIGHT COLUMN (Sidebar) -->
+    <div class="col-right">
+        
+        <!-- VIDEO PORTFOLIO SECTION -->
+        <div class="video-portfolio" style="text-align: center;">
+            <h3 style="margin-bottom: 15px;">
+                Interactive CV
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="margin-left: 5px; vertical-align: middle;">
+                    <path d="M13.3 1.5C13.1 0.9 12.6 0.5 12 0.3C10.9 0 6.8 0 6.8 0 6.8 0 2.7 0 1.6 0.3C1 0.5 0.5 0.9 0.3 1.5C0 2.6 0 5 0 5C0 5 0 7.4 0.3 8.5C0.5 9.1 1 9.5 1.6 9.7C2.7 10 6.8 10 6.8 10C6.8 10 10.9 10 12 9.7C12.6 9.5 13.1 9.1 13.3 8.5C13.6 7.4 13.6 5 13.6 5C13.6 5 13.6 2.6 13.3 1.5Z" fill="#FF0000"/>
+                    <path d="M5.4 7.1L9 5L5.4 2.9V7.1Z" fill="white"/>
+                </svg>
+            </h3>
+            
+            <div class="qr-main-container">
+                <a href="https://www.youtube.com/playlist?list=PLao6tUgR5WOOWmOyPRtY6mw6K82M1P9oE" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_playlist.png" style="width: 100px; height: 100px; margin: 0 auto 5px; display: block;" alt="Playlist QR">
+                    <div style="font-size:11px; font-weight:700; color:#0f2b46; margin-bottom: 2px;">Personal Video Series</div>
+                    <div style="font-size:8px; color:#666; margin-bottom:4px;">Short engaging clips about my work</div>
+                    <div style="font-size:7px; color:#3498db; text-decoration:underline;">youtube.com/playlist...</div>
+                </a>
+            </div>
+
+            <div style="margin: 0 0 8px; font-size:8px; color:#999; font-weight: 600; letter-spacing: 0.5px; border-bottom: 1px solid #e0e0e0; padding-bottom: 3px;">EPISODE SELECTOR</div>
+            
+            <div class="shorts-grid">
+                <div style="display: inline-block; width: 23%; vertical-align: top;">
+                    <a href="https://youtube.com/shorts/XetwUQ2LDHk" style="text-decoration: none; color: inherit;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_reel_0_intro.png" style="width: 35px; height: 35px; margin: 0 auto;">
+                        <div style="font-size:6px; color:#555; margin-top:2px; line-height: 1.1;">01<br>Intro</div>
+                        <div style="font-size:5px; color:#3498db; margin-top:2px;">youtube.com/shorts...</div>
+                    </a>
+                </div>
+                <div style="display: inline-block; width: 23%; vertical-align: top;">
+                    <a href="https://youtube.com/shorts/4m8JvEYQFU0" style="text-decoration: none; color: inherit;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_reel_1_3hour_factory.png" style="width: 35px; height: 35px; margin: 0 auto;">
+                        <div style="font-size:6px; color:#555; margin-top:2px; line-height: 1.1;">02<br>Factory</div>
+                        <div style="font-size:5px; color:#3498db; margin-top:2px;">youtube.com/shorts...</div>
+                    </a>
+                </div>
+                <div style="display: inline-block; width: 23%; vertical-align: top;">
+                    <a href="https://youtube.com/shorts/jI15B0CCZuM" style="text-decoration: none; color: inherit;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_reel_2_hormones.png" style="width: 35px; height: 35px; margin: 0 auto;">
+                        <div style="font-size:6px; color:#555; margin-top:2px; line-height: 1.1;">03<br>Code</div>
+                        <div style="font-size:5px; color:#3498db; margin-top:2px;">youtube.com/shorts...</div>
+                    </a>
+                </div>
+                <div style="display: inline-block; width: 23%; vertical-align: top;">
+                    <a href="https://youtube.com/shorts/y8q_WG6lsAw" style="text-decoration: none; color: inherit;">
+                        <img src="file:///Users/mtiesha/my/hr-tech/assets/qrs/qr_reel_3_vdnh.png" style="width: 35px; height: 35px; margin: 0 auto;">
+                        <div style="font-size:6px; color:#555; margin-top:2px; line-height: 1.1;">04<br>Research</div>
+                        <div style="font-size:5px; color:#3498db; margin-top:2px;">youtube.com/shorts...</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <h3>Key Competencies</h3>
+            <div class="skill-group">
+                <div style="font-size: 9px; font-weight: 700; color: #7f8c8d; text-transform: uppercase; margin-bottom: 5px;">Product Strategy & GTM</div>
+                <span class="skill-tag">GTM Strategy & Positioning</span>
+                <span class="skill-tag">Value Proposition Design</span>
+                <span class="skill-tag">Unit Economics & Pricing</span>
+                <span class="skill-tag">Competitive Intelligence</span>
+            </div>
+
+            <div class="skill-group">
+                <div style="font-size: 9px; font-weight: 700; color: #7f8c8d; text-transform: uppercase; margin-bottom: 5px;">Applied GenAI & Validation</div>
+                <span class="skill-tag">Agentic Workflows</span>
+                <span class="skill-tag">RAG & Structured Outputs</span>
+                <span class="skill-tag">Rapid MVP</span>
+                <span class="skill-tag">Tech Feasibility</span>
+            </div>
+
+            <div class="skill-group">
+                <div style="font-size: 9px; font-weight: 700; color: #7f8c8d; text-transform: uppercase; margin-bottom: 5px;">Engineering Core</div>
+                <span class="skill-tag">System Architecture</span>
+                <span class="skill-tag">Algorithms & Optimization</span>
+                <span class="skill-tag">Embedded (ESP32)</span>
+                <span class="skill-tag">Vertex AI / LLMOps</span>
+            </div>
+
+            <div class="skill-group" style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <div style="font-size: 9px; font-weight: 700; color: #7f8c8d; text-transform: uppercase; margin-bottom: 5px;">Languages</div>
+                <div style="font-size: 10px; color: #2c3e50; font-weight: 600; letter-spacing: 0.3px;">
+                    Python, TypeScript, C/C++, Kotlin
+                </div>
+            </div>
+
+        <br>
+        <h3>Education</h3>
+        
+        <div class="edu-entry">
+            <span class="edu-school">42 France</span>
+            <span class="edu-degree">Software Engineering (Architect)</span>
+            <span class="edu-date">2021 - 2024</span>
+            <div class="edu-desc">
+                Intensive peer-to-peer coding methodology. Focus on <strong>low-level algorithms</strong>, C/C++, Unix architecture.
+            </div>
+        </div>
+
+        <div class="edu-entry">
+            <span class="edu-school">Moscow City Pedagogical University</span>
+            <span class="edu-degree">Bachelor of Special Education (Defectology)</span>
+            <span class="edu-date">2018 - March 2022</span>
+            <div class="edu-desc">
+                Semi-medical specialization focused on the education of persons with developmental disabilities (clinical defectology) and neurodevelopmental correction.
+            </div>
+        </div>
+
+        <!-- MY PRODUCT DEVELOPMENT PIPELINE -->
+        <div style="margin-top: 30px;">
+            <h3 style="color: #0f2b46; text-transform: uppercase; font-size: 11px; font-weight: 700; border-bottom: 2px solid #3498db; padding-bottom: 5px; margin-bottom: 20px;">My Product Development Pipeline</h3>
+            
+            <div style="font-size: 9px; color: #444;">
+                <!-- 1. Business Requirements -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">1. Business Requirements</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Marketing alignment (Positioning, USP, Segments). Customer Discovery interviews. Document pain points & unmet needs. Search for empirical evidence. Initial MVP scoping.
+                    </div>
+                </div>
+                
+                <!-- 2. Executive Pre-Filtering -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">2. Executive Pre-Filtering</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Present to management. Score by Market Demand vs Value. Eliminate low-potential options.
+                    </div>
+                </div>
+
+                <!-- 3. Competitive & Portfolio Analysis -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">3. Competitive & Portfolio Analysis</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Apply EST Model. Integrate into comparison table. Portfolio Analysis (BCG Matrix). Assess strategic fit.
+                    </div>
+                </div>
+
+                <!-- 4. Portfolio Role Analysis -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">4. Portfolio Role Analysis</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Classify: Burger (Core), Fries (Cross-sell), Drink (High-margin upsell). Evaluate portfolio balance & forecast impact.
+                    </div>
+                </div>
+
+                <!-- 5. User Mapping -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">5. User Mapping</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Create User Story Map (USM). Define Backbone & Walking Skeleton. Create User Flow Map (UFM).
+                    </div>
+                </div>
+
+                <!-- 6. Engagement & Retention Design -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">6. Engagement & Retention Design</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Build Hook Model (Trigger → Investment). Design viral loops. Lock-in Analysis.<br>
+                        <strong>Metric: Stickiness (DAU/MAU).</strong>
+                    </div>
+                </div>
+
+                <!-- 7. Value & Behavioral Analysis -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">7. Value & Behavioral Analysis</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Apply Value Pyramid. Review UX via Mental Models. Adapt mechanics to Player Types.
+                    </div>
+                </div>
+
+                <!-- 8. Assumption Validation -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">8. Assumption Validation</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        List assumptions (User, Market, Tech). Build Assumption Matrix (Importance × Uncertainty). Run experiments (Interviews, A/B, Prototypes).
+                    </div>
+                </div>
+
+                <!-- 9. MVP Definition -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">9. MVP Definition</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Minimize steps to core value. Define 3 MVP variants.
+                    </div>
+                </div>
+
+                <!-- 10. Customer & Internal Validation -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">10. Customer & Internal Validation</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        MVP user testing (Usability, Value). Gather internal feedback.<br>
+                        <strong>Validate Retention (D3/D14/D30/D90/D120).</strong>
+                    </div>
+                </div>
+
+                <!-- 11. Planning & Feasibility -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">11. Planning & Feasibility</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Run estimation sessions (Story Points). Remove complexity. Identify resource needs.
+                    </div>
+                </div>
+
+                <!-- 12. UI/UX Design -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">12. UI/UX Design</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Deliver requirements. Produce interactive prototypes. Ensure UX alignment.
+                    </div>
+                </div>
+
+                <!-- 13. Cost & Financial Analysis -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">13. Cost & Financial Analysis</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Forecast P&L: Dev costs vs. ROI. <strong>Target LTV/CAC.</strong>
+                    </div>
+                </div>
+
+                <!-- 14. Final Report & Pitch -->
+                <div style="margin-bottom: 12px;">
+                    <strong style="display:block; color:#0f2b46; font-size:10px; margin-bottom:2px;">14. Final Report & Pitch</strong>
+                    <div style="line-height:1.35; color:#555;">
+                        Compile strategic report. Present business case. Secure budget & resources.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 10px 50px; text-align: center; font-size: 8px; color: #bdc3c7; border-top: 1px solid #f0f0f0;">
+    Generated by <strong>Lukyanov HR Pipeline</strong>
+</footer>
 </body>
 </html>
